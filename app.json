@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "WalletWise",
+    "slug": "WalletWise",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/favicon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "scheme": "walletwise",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.walletwise"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.walletwise"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-asset",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/splash-icon.png"
+        }
+      ],
+      "expo-audio"
+    ]
+  }
+}
