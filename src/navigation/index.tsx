@@ -3,8 +3,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { Home } from "./screens/Home";
 import { InitialScreen } from "./screens/InitialScreen";
+import { Register } from "./screens/Register";
 
 const RootStack = createNativeStackNavigator({
+  initialRouteName: "Home",
+
   screenOptions:{
     animation:"fade",
     animationDuration: 300,
@@ -23,6 +26,12 @@ const RootStack = createNativeStackNavigator({
         headerShown:false,
       },
     },
+    Register:{
+      screen: Register,
+      options:{
+        headerShown: false,
+      }
+    }
   },
 });
 

@@ -8,7 +8,6 @@ import {
   ViewStyle,
 } from "react-native";
 
-
 type IconAppButtonProps = {
   titulo: string;
   simbolo?: ImageSourcePropType;
@@ -25,8 +24,16 @@ export function IconAppButton({
   buttonStyle,
 }: IconAppButtonProps) {
   return (
-    <Pressable onPress={()=> {onPress();
-}} style={[styles.button, buttonStyle]}>
+    <Pressable
+      onPress={() => {
+        onPress();
+      }}
+      style={({ pressed }) => [
+        styles.button,
+        buttonStyle,
+        pressed && styles.buttonOnPress,
+      ]}
+    >
       <Image source={simbolo} style={styles.icon} />
       <Text style={[styles.text, style]}>{titulo}</Text>
     </Pressable>
@@ -46,6 +53,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 15,
     marginTop: 5,
+  },
+  buttonOnPress: {
+    backgroundColor: "#DCEEFF",
+    transform: [{ scale: 0.98 }],
+    
   },
   icon: {
     width: 24,

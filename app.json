@@ -1,23 +1,23 @@
 {
   "expo": {
-    "name": "WalletWise",
-    "slug": "WalletWise",
+    "name": "WiseWallet",
+    "slug": "wisewallet",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/favicon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "scheme": "walletwise",
+    "scheme": "wisewallet",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.walletwise"
+      "bundleIdentifier": "com.wisewallet"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.walletwise"
+      "package": "com.wisewallet"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,8 +30,7 @@
           "backgroundColor": "#ffffff",
           "image": "./assets/splash-icon.png"
         }
-      ],
-      "expo-audio"
+      ]
     ]
   }
 }
