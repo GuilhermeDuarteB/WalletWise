@@ -1,18 +1,15 @@
 import {
-  View,
   Text,
   StyleSheet,
   Image,
-  Alert,
-  Button,
   Pressable,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { IconAppButton } from "../../components/IconAppButton";
+import { IconAppButton } from "../../../components/IconAppButton";
 import { useNavigation } from "@react-navigation/native";
-import { globalStyles } from "../../styles/globalStyles";
+import { globalStyles } from "../../../styles/globalStyles";
 
-export function Home() {
+export function Login() {
   const navigation = useNavigation();
   return (
     <LinearGradient
@@ -22,32 +19,37 @@ export function Home() {
       style={globalStyles.container}
     >
       <Image
-        source={require("../../assets/walletwise-logo.png")}
-        style={{ width: 200, height: 170, resizeMode: "contain" }}
+        source={require("../../../assets/WiseWallet_logo.png")}
+        style={globalStyles.logoScreens}
       />
-      <Text style={styles.subtitle}>Bem-vindo à tua carteira digital!</Text>
+      <Image
+        source={require("../../../assets/WiseWallet_texto.png")}
+        style={globalStyles.logoTextScreens}
+      />
+      <Text style={globalStyles.slogan}>Cada despesa conta.</Text>
+      <Text style={styles.subtitle}>Regista, organiza e compreende os teus gastos.</Text>
       <IconAppButton
         titulo="Continuar com Apple"
-        simbolo={require("../../assets/apple_logo.png")}
+        simbolo={require("../../../assets/apple_logo.png")}
         onPress={() => navigation.navigate("InitialScreen")}
       />
       <IconAppButton
         titulo="Continuar com Google"
-        simbolo={require("../../assets/Google__G__logo.png")}
+        simbolo={require("../../../assets/Google__G__logo.png")}
         onPress={() => navigation.navigate("InitialScreen")}
       />
       <IconAppButton
         titulo="Continuar com Facebook"
-        simbolo={require("../../assets/facebook_logo.png")}
+        simbolo={require("../../../assets/facebook_logo.png")}
         onPress={() => navigation.navigate("InitialScreen")}
       />
 
       <IconAppButton
         titulo="Continuar com o E-mail"
-        simbolo={require("../../assets/email_logo.png")}
-        onPress={() => navigation.navigate("InitialScreen")}
+        simbolo={require("../../../assets/email_logo.png")}
+        onPress={() => navigation.navigate("LoginEmail")}
       />
-      <Text style={styles.text}>Ainda sem conta?</Text>
+      <Text style={styles.text}>Ainda não tem conta conta?</Text>
 
       <Pressable onPress={() => navigation.navigate("Register")}>
         <Text
@@ -67,8 +69,9 @@ export function Home() {
 const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
-    marginBottom: 5,
+    marginBottom: 25,
     color: "#dad4d4",
+    marginTop: -5,
   },
   text: {
     fontSize: 15,

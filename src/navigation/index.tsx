@@ -1,12 +1,33 @@
 import { createStaticNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { Home } from "./screens/Home";
-import { InitialScreen } from "./screens/InitialScreen";
-import { Register } from "./screens/Register";
+import { Login } from "./screens/(auth)/Login";
+import { InitialScreen } from "./screens/(panel)/InitialScreen";
+import { Register } from "./screens/(auth)/Register";
+import { LoginEmail } from "./screens/(auth)/LoginEmail";
+import { AuthProvider, useAuth } from "../contexts/AuthContext";
+import loading from "./screens/loading";
 
+//verifica se session ainda esta a dar loading
+function userIsLoading() {
+  const { loading } = useAuth();
+  return loading;
+}
+
+//  verifica user esta auth
+function userSignIn(){
+  const {loading, user} = useAuth();
+  return !loading && user !== null
+}
+
+// verifica user nao esta auth
+function userIsSignedOut() {
+    const { loading, user } = useAuth();
+    return !loading && user === null;
+}
+
+//definir rotas
 const RootStack = createNativeStackNavigator({
-  initialRouteName: "Home",
 
   screenOptions:{
     animation:"fade",
@@ -14,20 +35,37 @@ const RootStack = createNativeStackNavigator({
     headerShown: false,
   },
   screens: {
-    Home: {
-      screen: Home,
+    Loading:{
+      if: userIsLoading,
+      screen: loading,
+      options:{
+        headerShown: false,
+      }
+    },
+    Login: {
+      if: userIsSignedOut,
+      screen: Login,
       options: {
         headerShown: false,
       },
     },
     InitialScreen:{
+      if: userSignIn,
       screen: InitialScreen,
       options:{
         headerShown:false,
       },
     },
     Register:{
+      if: userIsSignedOut,
       screen: Register,
+      options:{
+        headerShown: false,
+      },
+    },
+    LoginEmail:{
+      if: userIsSignedOut,
+      screen: LoginEmail,
       options:{
         headerShown: false,
       }
@@ -36,6 +74,16 @@ const RootStack = createNativeStackNavigator({
 });
 
 export const Navigation = createStaticNavigation(RootStack);
+
+export default function RootLayout(){
+
+  return(
+    <AuthProvider>
+      <Navigation/>
+    </AuthProvider>
+  )
+}
+
 
 type RootStackType = typeof RootStack;
 

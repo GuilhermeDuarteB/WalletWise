@@ -2,11 +2,19 @@ import { DarkTheme, DefaultTheme } from "@react-navigation/native";
 import { useColorScheme } from "react-native";
 
 import { Navigation } from "./navigation";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { AuthProvider } from "./contexts/AuthContext";
 
 export function App() {
   const colorScheme = useColorScheme();
 
   const theme = colorScheme === "dark" ? DarkTheme : DefaultTheme;
 
-  return <Navigation theme={theme} />;
+  return (
+    <SafeAreaProvider>
+      <AuthProvider>
+      <Navigation theme={theme} />
+      </AuthProvider>
+    </SafeAreaProvider>
+  );
 }

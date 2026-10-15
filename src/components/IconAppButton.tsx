@@ -34,7 +34,7 @@ export function IconAppButton({
         pressed && styles.buttonOnPress,
       ]}
     >
-      <Image source={simbolo} style={styles.icon} />
+      {simbolo && <Image source={simbolo} style={styles.icon} />}
       <Text style={[styles.text, style]}>{titulo}</Text>
     </Pressable>
   );
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     borderColor: "#D8DFE9",
     borderRadius: 12,
     padding: 15,
-    marginTop: 5,
+    marginTop: 8,
   },
   buttonOnPress: {
     backgroundColor: "#DCEEFF",
