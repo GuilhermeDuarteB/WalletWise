@@ -1,16 +1,51 @@
-import {
-  Text,
-  StyleSheet,
-  Image,
-  Pressable,
-} from "react-native";
+import { Alert, Text, StyleSheet, Image, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { IconAppButton } from "../../../components/IconAppButton";
 import { useNavigation } from "@react-navigation/native";
 import { globalStyles } from "../../../styles/globalStyles";
+import { signInWithGoogle } from "../../../lib/googleAuth";
+import { useState } from "react";
+import { signInWithFacebook } from "../../../lib/facebookAuth";
 
 export function Login() {
   const navigation = useNavigation();
+
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [facebookLoading, setFacebookLoading] = useState(false);
+
+  async function handleGoogleLogin() {
+    if (googleLoading) return;
+
+    try {
+      setGoogleLoading(true);
+
+      await signInWithGoogle();
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Ocorreu um erro inesperado";
+      Alert.alert("Erro a dar login com o Google", message);
+      console.log(message);
+    } finally {
+      setGoogleLoading(false);
+    }
+  }
+
+  async function handleFacebookLogin() {
+    if (facebookLoading) return;
+    try {
+      setFacebookLoading(true);
+
+      await signInWithFacebook();
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Ocorreu um erro inesperado";
+      Alert.alert("Erro a dar login com o Facebook", message);
+      console.log(message);
+    } finally {
+      setFacebookLoading(false);
+    }
+  }
+
   return (
     <LinearGradient
       colors={["#0521c2", "#1b88df"]}
@@ -27,7 +62,9 @@ export function Login() {
         style={globalStyles.logoTextScreens}
       />
       <Text style={globalStyles.slogan}>Cada despesa conta.</Text>
-      <Text style={styles.subtitle}>Regista, organiza e compreende os teus gastos.</Text>
+      <Text style={styles.subtitle}>
+        Regista, organiza e compreende os teus gastos.
+      </Text>
       <IconAppButton
         titulo="Continuar com Apple"
         simbolo={require("../../../assets/apple_logo.png")}
@@ -36,12 +73,12 @@ export function Login() {
       <IconAppButton
         titulo="Continuar com Google"
         simbolo={require("../../../assets/Google__G__logo.png")}
-        onPress={() => navigation.navigate("InitialScreen")}
+        onPress={handleGoogleLogin}
       />
       <IconAppButton
         titulo="Continuar com Facebook"
         simbolo={require("../../../assets/facebook_logo.png")}
-        onPress={() => navigation.navigate("InitialScreen")}
+        onPress={handleFacebookLogin}
       />
 
       <IconAppButton
