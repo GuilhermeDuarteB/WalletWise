@@ -49,7 +49,7 @@ export function LoginEmail() {
 
   return (
     <LinearGradient
-      colors={["#0521c2", "#1b88df"]}
+      colors={["#6578e7", "#1b88df"]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
       style={{ flex: 1 }}

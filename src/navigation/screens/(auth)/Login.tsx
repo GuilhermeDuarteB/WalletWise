@@ -48,7 +48,7 @@ export function Login() {
 
   return (
     <LinearGradient
-      colors={["#0521c2", "#1b88df"]}
+      colors={["#6578e7", "#1b88df"]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
       style={globalStyles.container}
@@ -65,11 +65,6 @@ export function Login() {
       <Text style={styles.subtitle}>
         Regista, organiza e compreende os teus gastos.
       </Text>
-      <IconAppButton
-        titulo="Continuar com Apple"
-        simbolo={require("../../../assets/apple_logo.png")}
-        onPress={() => navigation.navigate("InitialScreen")}
-      />
       <IconAppButton
         titulo="Continuar com Google"
         simbolo={require("../../../assets/Google__G__logo.png")}

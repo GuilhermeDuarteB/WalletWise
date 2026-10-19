@@ -7,6 +7,8 @@ import { Register } from "./screens/(auth)/Register";
 import { LoginEmail } from "./screens/(auth)/LoginEmail";
 import { AuthProvider, useAuth } from "../contexts/AuthContext";
 import loading from "./screens/loading";
+import AppTabs from "./appTabs";
+import { InitialScreen as AuthInitialScreen } from "./screens/(auth)/InitialScreen";
 
 //verifica se session ainda esta a dar loading
 function userIsLoading() {
@@ -15,32 +17,38 @@ function userIsLoading() {
 }
 
 //  verifica user esta auth
-function userSignIn(){
-  const {loading, user} = useAuth();
-  return !loading && user !== null
+function userSignIn() {
+  const { loading, user } = useAuth();
+  return !loading && user !== null;
 }
 
 // verifica user nao esta auth
 function userIsSignedOut() {
-    const { loading, user } = useAuth();
-    return !loading && user === null;
+  const { loading, user } = useAuth();
+  return !loading && user === null;
 }
 
 //definir rotas
 const RootStack = createNativeStackNavigator({
-
-  screenOptions:{
-    animation:"fade",
+  screenOptions: {
+    animation: "fade",
     animationDuration: 300,
     headerShown: false,
   },
   screens: {
-    Loading:{
+    Loading: {
       if: userIsLoading,
       screen: loading,
-      options:{
+      options: {
         headerShown: false,
-      }
+      },
+    },
+    AuthInitialScreen: {
+      if: userIsSignedOut,
+      screen: AuthInitialScreen,
+      options: {
+        headerShown: false,
+      },
     },
     Login: {
       if: userIsSignedOut,
@@ -49,41 +57,39 @@ const RootStack = createNativeStackNavigator({
         headerShown: false,
       },
     },
-    InitialScreen:{
+    AppTabs: {
       if: userSignIn,
-      screen: InitialScreen,
-      options:{
-        headerShown:false,
+      screen: AppTabs,
+      options: {
+        headerShown: false,
       },
     },
-    Register:{
+    Register: {
       if: userIsSignedOut,
       screen: Register,
-      options:{
+      options: {
         headerShown: false,
       },
     },
-    LoginEmail:{
+    LoginEmail: {
       if: userIsSignedOut,
       screen: LoginEmail,
-      options:{
+      options: {
         headerShown: false,
-      }
-    }
+      },
+    },
   },
 });
 
 export const Navigation = createStaticNavigation(RootStack);
 
-export default function RootLayout(){
-
-  return(
+export default function RootLayout() {
+  return (
     <AuthProvider>
-      <Navigation/>
+      <Navigation />
     </AuthProvider>
-  )
+  );
 }
-
 
 type RootStackType = typeof RootStack;
 

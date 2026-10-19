@@ -39,5 +39,48 @@ export const globalStyles = StyleSheet.create({
       marginTop: 8,
       marginBottom: 5,
       resizeMode: "contain"
-    }
+    },
+    secundaryText:{
+      color: "#74819b",
+      marginBottom: 5,
+    },
+    scrollContent: {
+    flexGrow: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 30,
+  },
+  headerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
+   containerInitial: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  },
+
+  scrollView: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+    gap: 12,
+  },
+  textBold: {
+    fontWeight: "bold",
+    fontSize: 26,
+  },
+  userImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    marginLeft: 20,
+    borderColor: "#1b88df",
+    borderWidth: 3,
+  },
+  rowText:{
+    color: "#2541df"
+  }
 })

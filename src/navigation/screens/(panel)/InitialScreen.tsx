@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { IconAppButton } from "../../../components/IconAppButton";
 import { supabase } from "../../../lib/supabase";
 import { useAuth } from "../../../contexts/AuthContext";
+import { globalStyles } from "../../../styles/globalStyles";
 
 export function InitialScreen() {
   const { user } = useAuth();
@@ -33,11 +34,11 @@ export function InitialScreen() {
     "Dezembro",
   ];
 
-  const hoje = new Date()
-  const nomeDia = diasDaSemana[hoje.getDay()]
-  const diaDoMes = hoje.getDate()
-  const nomeMes = mesesAno[hoje.getMonth()]
-  const ano = hoje.getFullYear()
+  const hoje = new Date();
+  const nomeDia = diasDaSemana[hoje.getDay()];
+  const diaDoMes = hoje.getDate();
+  const nomeMes = mesesAno[hoje.getMonth()];
+  const ano = hoje.getFullYear();
 
   // dados user auth
   const nome =
@@ -60,17 +61,24 @@ export function InitialScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <ScrollView
         style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={globalStyles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.headerRow}>
+        <View style={globalStyles.headerRow}>
           <View style={styles.content}>
-            <Text style={styles.textBold}>Olá,</Text>
-            <Text style={[styles.textBold, {marginLeft: -5}]}> {nome}!</Text>
-            <Text>
+            <View style={styles.bolaEsquerda} />
+            <View style={styles.bolaDireita} />
+            <Text style={[styles.textBold, { marginBottom: -5 }]}>Olá,</Text>
+            <Text
+              style={[styles.textBold, { marginLeft: -5, color: "#2541df" }]}
+            >
+              {" "}
+              {nome}!
+            </Text>
+            <Text style={globalStyles.secundaryText}>
               {nomeDia}, {diaDoMes} de {nomeMes} de {ano}
             </Text>
           </View>
@@ -99,19 +107,6 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
   },
-
-  scrollContent: {
-    flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 30,
-  },
-  headerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-  },
   content: {
     flex: 1,
     gap: 12,
@@ -127,5 +122,24 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     borderColor: "#1b88df",
     borderWidth: 3,
+  },
+  bolaEsquerda: {
+    position: "absolute",
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: "#E2EFFF",
+    top: -20,
+    left: -120,
+  },
+
+  bolaDireita: {
+    position: "absolute",
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: "#E2EFFF",
+    top: 90,
+    right: -225,
   },
 });
