@@ -31,7 +31,8 @@
           "image": "./assets/splash-icon.png"
         }
       ],
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-sqlite"
     ]
   }
 }

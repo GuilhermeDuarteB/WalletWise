@@ -1,20 +1,28 @@
-import { View, StyleSheet, Text } from "react-native";
+import { useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Pressable,
+  Modal,
+  ScrollView,
+} from "react-native";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { InitialScreen } from "./screens/(panel)/InitialScreen";
 import { TransactionsScreen } from "./screens/(panel)/TransactionsScreen";
+import { AddExpense } from "../components/AddExpense";
 
+// Ecrãs temporários
 function PlaceholderScreen({ titulo }: { titulo: string }) {
   return (
-    <View style={style.placeholder}>
-      <Text style={style.title}>{titulo}</Text>
+    <View style={styles.placeholder}>
+      <Text style={styles.title}>{titulo}</Text>
     </View>
   );
-}
-
-function AddExpenseScreen() {
-  return <PlaceholderScreen titulo="Adicionar despesa" />;
 }
 
 function StatisticsScreen() {
@@ -25,19 +33,101 @@ function MoreScreen() {
   return <PlaceholderScreen titulo="Mais" />;
 }
 
-// bottom menu
+// por causa do add despesas o react precisa sempre de uma tela
+function EmptyScreen() {
+  return null;
+}
+
+// btn + com modal
+function AddTabButton() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const insets = useSafeAreaInsets();
+
+  function abrirModal() {
+    setModalVisible(true);
+  }
+
+  function fecharModal() {
+    setModalVisible(false);
+  }
+
+  return (
+    <>
+      {/* btn no menu */}
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel="Adicionar despesa"
+        onPress={abrirModal}
+        style={styles.addTabButton}
+      >
+        <View style={styles.addButton}>
+          <Ionicons name="add" size={34} color="#FFFFFF" />
+        </View>
+      </Pressable>
+
+      {/* modal settings */}
+      <Modal
+        visible={modalVisible}
+        transparent
+        animationType="slide"
+        onRequestClose={fecharModal}
+        statusBarTranslucent
+      >
+        <View style={styles.modalOverlay}>
+          {/* fundo escuro */}
+          <Pressable
+            style={StyleSheet.absoluteFill}
+            onPress={fecharModal}
+            accessibilityLabel="Fechar menu"
+          />
+
+          {/* painel */}
+          <View
+            style={[
+              styles.modalContent,
+              { paddingBottom: Math.max(insets.bottom, 20) },
+            ]}
+          >
+            <View style={styles.modalHandle} />
+
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Adicionar Despesa</Text>
+
+              <Pressable onPress={fecharModal} hitSlop={12}>
+                <Ionicons name="close" size={26} color="#0521C2" />
+              </Pressable>
+            </View>
+
+            <ScrollView
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}
+            >
+              <AddExpense />
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
+    </>
+  );
+}
+
+// menu
 const Tabs = createBottomTabNavigator({
   screenOptions: {
     headerShown: false,
+
     animation: "fade",
+
     transitionSpec: {
       animation: "timing",
       config: {
         duration: 250,
       },
     },
-    tabBarActiveTintColor: "#0521c2",
+
+    tabBarActiveTintColor: "#0521C2",
     tabBarInactiveTintColor: "#8A8A8A",
+
     tabBarStyle: {
       backgroundColor: "#FFFFFF",
       borderTopColor: "#EEEEEE",
@@ -45,6 +135,7 @@ const Tabs = createBottomTabNavigator({
       paddingTop: 4,
       overflow: "visible",
     },
+
     tabBarLabelStyle: {
       fontSize: 11,
       fontWeight: "600",
@@ -81,16 +172,12 @@ const Tabs = createBottomTabNavigator({
     },
 
     Adicionar: {
-      screen: AddExpenseScreen,
+      screen: EmptyScreen,
       options: {
         title: "",
         tabBarLabel: () => null,
 
-        tabBarIcon: () => (
-          <View style={styles.addButton}>
-            <Ionicons name="add" size={34} color="#FFFFFF" />
-          </View>
-        ),
+        tabBarButton: () => <AddTabButton />,
       },
     },
 
@@ -128,22 +215,32 @@ const Tabs = createBottomTabNavigator({
 
 export default Tabs;
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   placeholder: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#FFFFFF",
   },
+
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#0521c2",
+    color: "#0521C2",
   },
-});
 
-const styles = StyleSheet.create({
+  // Área clicável do botão central
+  addTabButton: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  // btn
   addButton: {
+    position: "absolute",
+    top: -22,
+
     width: 64,
     height: 64,
     borderRadius: 32,
@@ -152,9 +249,6 @@ const styles = StyleSheet.create({
 
     justifyContent: "center",
     alignItems: "center",
-
-    position: "absolute",
-    top: -35,
 
     borderWidth: 4,
     borderColor: "#FFFFFF",
@@ -167,5 +261,44 @@ const styles = StyleSheet.create({
       height: 3,
     },
     shadowRadius: 5,
+  },
+
+  // Fundo escurecido
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(0, 0, 0, 0.45)",
+  },
+
+  // Painel do formulário
+  modalContent: {
+    backgroundColor: "#FFFFFF",
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    paddingHorizontal: 22,
+    paddingTop: 12,
+    maxHeight: "85%",
+  },
+
+  modalHandle: {
+    width: 42,
+    height: 5,
+    borderRadius: 3,
+    backgroundColor: "#D8DFE9",
+    alignSelf: "center",
+    marginBottom: 20,
+  },
+
+  modalHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#0521C2",
   },
 });

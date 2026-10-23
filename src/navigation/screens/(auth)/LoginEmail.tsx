@@ -38,7 +38,15 @@ export function LoginEmail() {
     })
 
     if(error){
+      if(error.message === "missing email or phone"){
+        Alert.alert("Erro ao logar", "Email ou Palavra-Passe não inseridos")
+      }
+      else if(error.message === "Invalid login credentials"){
+        Alert.alert("Erro ao logar", "Credenciais Inválidas")
+      } else {
       Alert.alert("Erro ao logar", error.message)
+
+      }
       setLoading(false)
       console.log(error.message)
       return

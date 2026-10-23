@@ -45,7 +45,11 @@ export function Register() {
     });
 
     if (error) {
+      if(error.message === "Anonymous sign-ins are disabled"){
+              Alert.alert("Erro ao registar a conta", "Por favor preencha o formulário para criar conta");
+      }else{
       Alert.alert("Erro ao registar a conta", error.message);
+      }
       console.log(error.message);
       setLoading(false);
       return;
