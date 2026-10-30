@@ -1,16 +1,19 @@
+import React from "react";
 import {
-  ImageSourcePropType,
   Pressable,
   Text,
-  Image,
   StyleSheet,
   TextStyle,
   ViewStyle,
 } from "react-native";
 
+import { Ionicons } from "@expo/vector-icons";
+
 type IconAppButtonProps = {
   titulo: string;
-  simbolo?: ImageSourcePropType;
+  simbolo?: keyof typeof Ionicons | string;
+  iconSize?: number;
+  iconColor?: string;
   onPress: () => void;
   style?: TextStyle;
   buttonStyle?: ViewStyle;
@@ -19,22 +22,31 @@ type IconAppButtonProps = {
 export function IconAppButton({
   titulo,
   simbolo,
+  iconSize = 24,
+  iconColor = "#000000",
   onPress,
   style,
   buttonStyle,
 }: IconAppButtonProps) {
   return (
     <Pressable
-      onPress={() => {
-        onPress();
-      }}
+      onPress={onPress}
+      accessibilityRole="button"
       style={({ pressed }) => [
         styles.button,
         buttonStyle,
         pressed && styles.buttonOnPress,
       ]}
     >
-      {simbolo && <Image source={simbolo} style={styles.icon} />}
+      {simbolo && (
+        <Ionicons
+          name={simbolo as any}
+          size={iconSize}
+          color={iconColor}
+          style={styles.icon}
+        />
+      )}
+
       <Text style={[styles.text, style]}>{titulo}</Text>
     </Pressable>
   );
@@ -57,13 +69,8 @@ const styles = StyleSheet.create({
   buttonOnPress: {
     backgroundColor: "#DCEEFF",
     transform: [{ scale: 0.98 }],
-    
   },
-  icon: {
-    width: 24,
-    height: 24,
-    resizeMode: "contain",
-  },
+  icon: {},
   text: {
     fontSize: 16,
     fontWeight: "600",

@@ -1,50 +1,50 @@
 import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
-    container:{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    title: {
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  title: {
     fontSize: 28,
     fontWeight: "bold",
     color: "#fff",
     marginBottom: 10,
   },
-    slogan:{
-        fontSize: 20,
-        color: "white",
-        marginBottom: 10,
-        marginTop: -5
-    },
-    subtitle: {
+  slogan: {
+    fontSize: 20,
+    color: "white",
+    marginBottom: 10,
+    marginTop: -5,
+  },
+  subtitle: {
     fontSize: 16,
     color: "#dad4d4",
     marginBottom: 5,
   },
-    btnNoIcon:{
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '55%',
-    },
-    logoScreens:{
-        width: 170,
-        height: 163,
-        resizeMode: "contain"
-    },
-    logoTextScreens:{
-      width: 250,
-      height: 55,
-      marginTop: 8,
-      marginBottom: 5,
-      resizeMode: "contain"
-    },
-    secundaryText:{
-      color: "#74819b",
-      marginBottom: 5,
-    },
-    scrollContent: {
+  btnNoIcon: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "55%",
+  },
+  logoScreens: {
+    width: 170,
+    height: 163,
+    resizeMode: "contain",
+  },
+  logoTextScreens: {
+    width: 250,
+    height: 55,
+    marginTop: 8,
+    marginBottom: 5,
+    resizeMode: "contain",
+  },
+  secundaryText: {
+    color: "#74819b",
+    marginBottom: 5,
+  },
+  scrollContent: {
     flexGrow: 1,
     paddingHorizontal: 20,
     paddingTop: 20,
@@ -56,7 +56,7 @@ export const globalStyles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
-   containerInitial: {
+  containerInitial: {
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
@@ -80,7 +80,21 @@ export const globalStyles = StyleSheet.create({
     borderColor: "#1b88df",
     borderWidth: 3,
   },
-  rowText:{
-    color: "#2541df"
-  }
-})
+  rowText: {
+    color: "#2541df",
+  },
+  infoArredondada: {
+    alignSelf: "flex-start",
+    marginLeft: 20,
+    marginTop: 5,
+    marginBottom: 9,
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+    backgroundColor: "#E2EFFF",
+    fontSize: 15,
+    color: "#0521C2",
+    borderRadius: 20,
+    overflow: "hidden",
+    fontWeight: "500",
+  },
+});

@@ -88,9 +88,32 @@ export function InitialScreen() {
           )}
         </View>
 
+        <View style={styles.totalGastoMensalTable}>
+          <Text
+            style={[
+              globalStyles.secundaryText,
+              { marginTop: 10, marginLeft: 13, fontSize: 17 },
+            ]}
+          >
+            TOTAL GASTO ESTE MÊS
+          </Text>
+          <Text
+            style={{
+              color: "#0521C2",
+              fontSize: 40,
+              fontWeight: "bold",
+              marginLeft: 13,
+              marginTop: 7,
+            }}
+          >
+            567,69$
+          </Text>
+          <Text style={globalStyles.infoArredondada}> -12% face a setembro</Text>
+        </View>
+
         <IconAppButton
           titulo="Sair"
-          simbolo={require("../../../assets/back_arrow.png")}
+          simbolo="arrow-back-outline"
           onPress={handleSignOut}
         />
       </ScrollView>
@@ -141,5 +164,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#E2EFFF",
     top: 90,
     right: -225,
+  },
+
+  totalGastoMensalTable: {
+    backgroundColor: "white",
+    borderStyle: "solid",
+    borderColor: "#E2EFFF",
+    borderWidth: 1,
+    borderRadius: 15,
   },
 });

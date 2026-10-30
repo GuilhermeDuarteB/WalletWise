@@ -1,4 +1,4 @@
-import { Alert, Text, StyleSheet, Image, Pressable } from "react-native";
+import { Alert, Text, StyleSheet, Image, Pressable, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { IconAppButton } from "../../../components/IconAppButton";
 import { useNavigation } from "@react-navigation/native";
@@ -65,22 +65,28 @@ export function Login() {
       <Text style={styles.subtitle}>
         Regista, organiza e compreende os teus gastos.
       </Text>
+      <View style={{ width: '100%', alignItems: 'center'}}>
       <IconAppButton
         titulo="Continuar com Google"
-        simbolo={require("../../../assets/Google__G__logo.png")}
+        simbolo="logo-google"
+        iconSize={25}
         onPress={handleGoogleLogin}
       />
       <IconAppButton
         titulo="Continuar com Facebook"
-        simbolo={require("../../../assets/facebook_logo.png")}
+        simbolo="logo-facebook"
+        iconColor="#1977f3"
+        iconSize={30}
         onPress={handleFacebookLogin}
       />
 
       <IconAppButton
         titulo="Continuar com o E-mail"
-        simbolo={require("../../../assets/email_logo.png")}
+        simbolo="mail-outline"
+        iconSize={25}
         onPress={() => navigation.navigate("LoginEmail")}
       />
+      </View>
       <Text style={styles.text}>Ainda não tem conta conta?</Text>
 
       <Pressable onPress={() => navigation.navigate("Register")}>
